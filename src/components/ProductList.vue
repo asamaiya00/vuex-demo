@@ -8,20 +8,17 @@
 </template>
 
 <script>
-import shop from '@/api/shop'
+
 export default {
   name: 'ProductList',
-  data () {
-    return {
-      products: []
+  computed: {
+    products () {
+      return this.$store.getters.availableProducts
     }
   },
   mounted () {
-    shop.getProducts(products => {
-      this.products = products
-    })
+    this.$store.dispatch('fetchProducts')
   }
-
 }
 </script>
 
