@@ -9,6 +9,22 @@ export default createStore({
   getters: {
     availableProducts (state) {
       return state.products.filter((prod) => prod.inventory > 0)
+    },
+    cartProducts (state) {
+      return state.cart.map((cartItem) => {
+        const product = state.products.find((prod) => prod.id === cartItem.id)
+        return {
+          title: product.title,
+          price: product.price,
+          quantity: cartItem.quantity
+        }
+      })
+    },
+    cartTotal (state, getters) {
+      return getters.cartProducts.reduce(
+        (total, cartItem) => total + cartItem.price * cartItem.quantity,
+        0
+      )
     }
   },
   mutations: {

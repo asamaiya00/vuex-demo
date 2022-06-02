@@ -3,7 +3,7 @@
     <h1>Product list</h1>
     <ul>
       <li v-for="product in products" :key="product.title">
-        {{ product.title }} - {{ product.price }}
+        {{ product.title }} - ${{ product.price }} - {{product.inventory}}
         <button @click="addProductToCart(product)">Add to cart</button>
       </li>
     </ul>
