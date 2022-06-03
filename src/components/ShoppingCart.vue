@@ -6,6 +6,8 @@
       </li>
     </ul>
     <h4>Total - ${{total.toFixed(2)}}</h4>
+    <button @click="$store.dispatch('checkout')" v-if="total">Checkout</button>
+    <p>{{$store.state.cartStatus}}</p>
 </template>
 <script>
 

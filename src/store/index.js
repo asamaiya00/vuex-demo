@@ -4,7 +4,8 @@ import shop from '@/api/shop'
 export default createStore({
   state: {
     products: [],
-    cart: []
+    cart: [],
+    cartStatus: null
   },
   getters: {
     availableProducts (state) {
@@ -39,6 +40,12 @@ export default createStore({
     },
     decreaseProductInventory (state, product) {
       product.inventory--
+    },
+    emptyCart (state) {
+      state.cart = []
+    },
+    changeCartStatus (state, status) {
+      state.cartStatus = status
     }
   },
   actions: {
@@ -57,6 +64,14 @@ export default createStore({
         }
         commit('decreaseProductInventory', product)
       }
+    },
+    checkout ({ commit }) {
+      shop.buyProducts(this.state.cart, () => {
+        commit('emptyCart')
+        commit('changeCartStatus', 'success')
+      }, () => {
+        commit('changeCartStatus', 'failed')
+      })
     }
   },
   modules: {}
