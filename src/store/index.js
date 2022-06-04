@@ -26,6 +26,9 @@ export default createStore({
         (total, cartItem) => total + cartItem.price * cartItem.quantity,
         0
       )
+    },
+    productIsInStock () {
+      return (product) => product.inventory > 0
     }
   },
   mutations: {
@@ -54,8 +57,8 @@ export default createStore({
         commit('setProducts', products)
       })
     },
-    addProductToCart ({ state, commit }, product) {
-      if (product.inventory > 0) {
+    addProductToCart ({ state, commit, getters }, product) {
+      if (getters.productIsInStock(product)) {
         const cartItem = state.cart.find((item) => item.id === product.id)
         if (!cartItem) {
           commit('pushProductToCart', product.id)
