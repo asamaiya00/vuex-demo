@@ -18,7 +18,7 @@ export default {
       return this.$store.state.products
     },
     productIsInStock () {
-      return this.$$store.getters.productIsInStock
+      return this.$store.getters.productIsInStock
     }
   },
   methods: {
