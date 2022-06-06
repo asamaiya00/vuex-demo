@@ -7,19 +7,21 @@
     </ul>
     <h4>Total - ${{total.toFixed(2)}}</h4>
     <button @click="$store.dispatch('checkout')" v-if="total">Checkout</button>
-    <p>{{$store.state.cartStatus}}</p>
+    <p>{{cartStatus}}</p>
 </template>
 <script>
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'ShoppingCart',
   computed: {
-    products () {
-      return this.$store.getters.cartProducts
-    },
-    total () {
-      return this.$store.getters.cartTotal
-    }
+    ...mapGetters({
+      products: 'cartProducts',
+      total: 'cartTotal'
+    }),
+    ...mapState({
+      cartStatus: 'cartStatus'
+    })
   }
 }
 </script>

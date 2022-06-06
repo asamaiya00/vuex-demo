@@ -11,15 +11,16 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'ProductList',
   computed: {
-    products () {
-      return this.$store.state.products
-    },
-    productIsInStock () {
-      return this.$store.getters.productIsInStock
-    }
+    ...mapState({
+      products: 'products'
+    }),
+    ...mapGetters({
+      productIsInStock: 'productIsInStock'
+    })
   },
   methods: {
     addProductToCart (product) {
